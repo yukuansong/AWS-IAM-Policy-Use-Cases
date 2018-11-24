@@ -1,0 +1,17 @@
+"Sid": "AllowRunInstancesWithRestrictions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateVolume",
+                "ec2:RunInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:volume/*",
+                "arn:aws:ec2:*:*:instance/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/key1": "value1"
+                },
+                "ForAnyValue:StringEquals": {
+                    "aws:TagKeys": [
+                        "key1"
