@@ -1,0 +1,35 @@
+1. Add a specific tag to the instances you want to gratn the users or grops access to
+2. Create an IAM policy that grants acces to any instances with the specific tag.
+3. Attach the IAM policy to the users or groups you want to access the instances.
+
+
+{
+    "Version" : "2012-10-17",
+        "Statement" :
+    [
+        {
+            "Effect" : "Allow",
+            "Action" : "ec2:*",
+            "Resource" : "*",
+            "Condition" : {
+                "StringEquals" : {
+                    "ec2:ResourceTag/UserName" : "${aws:username}"
+                }
+            }
+        },
+        {
+            "Effect" : "Allow",
+            "Action" : "ec2:Describe*",
+            "Resource" : "*"
+        },
+        {
+            "Effect" : "Deny",
+            "Action" :
+                [
+                 "ec2:CreateTags",
+                 "ec2:DeleteTags"
+                ],
+            "Resource" : "*"
+        }        
+    ]                                        
+}
